@@ -1,0 +1,16 @@
+<p> You are searching for: {{keywords}} </p>
+{% if search_articles %}
+	<ul>
+    {% for article in search_articles %}
+        <li>
+        <a href="{% url 'articles:articleid' article.id %}">{{ article.title }}</a>
+        {{article.author}} 
+        {{article.department}}
+        {{article.pub_date}}
+        </li>
+        <br/>
+    {% endfor %}
+	</ul>
+{% else %}
+	<p>No articles found :'(</p>
+{% endif %}

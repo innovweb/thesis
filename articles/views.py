@@ -11,10 +11,7 @@ def index(request):
 	return display(request, 10)
 
 def change_display(request):
-	try:
-		num_to_display = int(request.GET['num_to_display'])
-	except (KeyError, Choice.DoesNotExist):
-		num_to_display = 10
+	num_to_display = int(request.GET.get(['num_to_display'],10))
 	return display(request, num_to_display)
 
 def articleid(request, article_id):
@@ -26,3 +23,13 @@ def department(request, dep):
 	article = get_object_or_404(Article, pk=article_id)
 	context = { 'article': article }
 	return render(request, 'articles/department.html', context)
+
+def search(request):
+	keywords = request.GET.get('search_keywords', None)
+	print(keywords)
+	if keywords:
+		search_articles = Article.objects.filter(title__icontains=keywords)
+	else:
+		search_articles = None
+	context = { 'keywords': keywords , 'search_articles': search_articles}
+	return render(request, 'articles/search.html', context)
