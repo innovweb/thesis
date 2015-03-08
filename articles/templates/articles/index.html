@@ -1,11 +1,19 @@
 <h1> Senior Theses! </h1>
 
+<!-- display type form -->
 <form action="{% url 'articles:change_display' %}" method="get">
     <label for="num_to_display">How many articles would you like to see?</label>
     <input type="text" name="num_to_display" id="num_to_display" value="{{ num }}"/>
+    {% ifequal display_type 'Date' %}
+    <input type="radio" name="display_type" id="display_type_date" value="Date" checked>Publication Date
+    <input type="radio" name="display_type" id="display_type_name" value="Name">Alphabetical
+    {% else %}
+    <input type="radio" name="display_type" id="display_type_date" value="Date">Publication Date
+    <input type="radio" name="display_type" id="display_type_name" value="Name" checked>Alphabetical
+    {% endifequal %}
     <input type="submit" value="Refresh Display" />
 </form>
-
+<!-- search form -->
 <form action="{% url 'articles:search' %}" method="get">
     <label for="search_keywords">What would you like to search?</label>
     <input type="text" name="search_keywords" id="search_keywords" value=""/>
@@ -13,7 +21,11 @@
 </form>
 
 {% if latest_articles %}
-	<p> Here are the {{ num }} most recently published senior theses: </p>
+    {% ifequal display_type 'Date' %}
+	   <p> Here are the {{ num }} most recently published senior theses: </p>
+    {% else %}
+        <p> Here are the first {{ num }} senior theses in alphabetical order: </p>
+    {% endifequal %}
     <ul>
     {% for article in latest_articles %}
         <li>
