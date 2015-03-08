@@ -6,6 +6,12 @@
     <input type="submit" value="Refresh Display" />
 </form>
 
+<form action="{% url 'articles:search' %}" method="get">
+    <label for="search_keywords">What would you like to search?</label>
+    <input type="text" name="search_keywords" id="search_keywords" value=""/>
+    <input type="submit" value="Search" />
+</form>
+
 {% if latest_articles %}
 	<p> Here are the {{ num }} most recently published senior theses: </p>
     <ul>
@@ -19,7 +25,6 @@
         <br/>
     {% endfor %}
     </ul>
-
 
 {% else %}
     <p>No articles are available.</p>
