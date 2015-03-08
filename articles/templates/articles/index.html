@@ -29,9 +29,9 @@
     <ul>
     {% for article in latest_articles %}
         <li>
-        <a href="{% url 'articles:articleid' article.id %}">{{ article.title }}</a>
-        {{article.author}} 
-        {{article.department}}
+        <a href="{% url 'articles:articleid' article.id %}">{{ article.title }}</a> |
+        {{article.author}} |
+        {{article.department}} |
         {{article.pub_date}}
         </li>
         <br/>
