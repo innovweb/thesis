@@ -1,0 +1,26 @@
+<h1> Senior Theses! </h1>
+
+<form action="{% url 'articles:change_display' %}" method="get">
+    <label for="num_to_display">How many articles would you like to see?</label>
+    <input type="text" name="num_to_display" id="num_to_display" value="{{ num }}"/>
+    <input type="submit" value="Refresh Display" />
+</form>
+
+{% if latest_articles %}
+	<p> Here are the {{ num }} most recently published senior theses: </p>
+    <ul>
+    {% for article in latest_articles %}
+        <li>
+        <a href="{% url 'articles:articleid' article.id %}">{{ article.title }}</a>
+        {{article.author}} 
+        {{article.department}}
+        {{article.pub_date}}
+        </li>
+        <br/>
+    {% endfor %}
+    </ul>
+
+
+{% else %}
+    <p>No articles are available.</p>
+{% endif %}
